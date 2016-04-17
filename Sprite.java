@@ -21,4 +21,3 @@ public abstract class Sprite {
 		return new Rectangle2D.Double(x, y, width, height);
 	}
 }
-

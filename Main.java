@@ -1,7 +1,6 @@
-import java.awt.Color;
-import java.awt.*;
+import java.awt.BorderLayout;
+
 import javax.swing.JFrame;
-import java.util.ArrayList;
 
 public class Main {
 	public static void main(String[] args){
@@ -12,12 +11,11 @@ public class Main {
 		
 		SpaceShip v = new SpaceShip(180, 550, 20, 20);
 		GamePanel gp = new GamePanel();
-		gp.sprites.add(v);
- 		gp.updateGameUI();
-
- 		frame.getContentPane().setBackground(Color.BLACK);
+		GameEngine engine = new GameEngine(gp, v);
+		frame.addKeyListener(engine);
 		frame.getContentPane().add(gp, BorderLayout.CENTER);
 		frame.setVisible(true);
 
+		engine.start();
 	}
 }

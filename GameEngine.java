@@ -4,9 +4,13 @@ import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.awt.geom.Rectangle2D;
 import javax.swing.Timer;
+import java.util.ArrayList;
+import java.util.Iterator;
 
 public class GameEngine implements KeyListener{
 		GamePanel gp;
+
+		private ArrayList<Enemy> enemies = new ArrayList<Enemy>();
 		private SpaceShip v;	
 
 		private Timer timer;
@@ -32,8 +36,32 @@ public class GameEngine implements KeyListener{
 			timer.start();
 		}
 
+		private void generateEnemy(){
+			Enemy e = new Enemy((int)(Math.random()*390), 30);
+			gp.sprites.add(e);
+			enemies.add(e);
+		}
+
 		private void process(){
+			generateEnemy();
+
+			Iterator<Enemy> e_iter = enemies.iterator();
+			while(e_iter.hasNext()){
+				Enemy e = e_iter.next();
+				e.proceed();
+			
+				if(!e.isAlive()){
+					e_iter.remove();
+					gp.sprites.remove(e);
+				}
+			}
+		
 			gp.updateGameUI();
+
+		}
+
+		public void die(){
+			timer.stop();
 		}
 
 		void controlVehicle(KeyEvent e) {

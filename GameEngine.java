@@ -14,6 +14,8 @@ public class GameEngine implements KeyListener{
 		private SpaceShip v;	
 
 		private Timer timer;
+		private double difficulty = 0.1;
+		private double easily = 0.1;
 
 		public GameEngine(GamePanel gp, SpaceShip v) {
 			this.gp = gp;
@@ -43,7 +45,9 @@ public class GameEngine implements KeyListener{
 		}
 
 		private void process(){
-			generateEnemy();
+			if(Math.random() < difficulty){
+				generateEnemy();
+		}
 
 			Iterator<Enemy> e_iter = enemies.iterator();
 			while(e_iter.hasNext()){
@@ -76,12 +80,18 @@ public class GameEngine implements KeyListener{
 
 		void controlVehicle(KeyEvent e) {
 			switch (e.getKeyCode()) {
-			case KeyEvent.VK_LEFT:
-				v.move(-1);
-				break;
-			case KeyEvent.VK_RIGHT:
-				v.move(1);
-				break;
+				case KeyEvent.VK_LEFT:
+					v.move(-1);
+					break;
+				case KeyEvent.VK_RIGHT:
+					v.move(1);
+					break;
+				case KeyEvent.VK_D:
+					difficulty += 0.1;
+					break;
+				case KeyEvent.VK_F:
+					easily -= 0.1;
+					break;
 			}
 		}
 	
